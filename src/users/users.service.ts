@@ -20,4 +20,36 @@ export class UsersService {
     // save that instance to db
     return this.repo.save(user);
   }
+
+  findOne(id: number) {
+    // find by id, if by attribute - ({ email: 'asdasdads'})
+    return this.repo.findOne(id);
+  }
+
+  find(email: string) {
+    return this.repo.find({ email });
+  }
+
+  // can have some or all of the attributes of User
+  async update(id: number, attrs: Partial<User>) {
+    // directly calling repo.update will not run hooks, therefore this approach is better
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new Error('user not found');
+    }
+
+    // copy all values of attrs into user overwriting any that were present
+    Object.assign(user, attrs);
+    return this.repo.save(user);
+  }
+
+  async remove(id: number) {
+    // same with delete/remove, any hooks will not run if we call delete()
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new Error('user not found');
+    }
+
+    return this.repo.remove(user);
+  }
 }
