@@ -33,3 +33,8 @@ export class User {
     console.log('removed user with id: ' + this.id);
   }
 }
+
+// Nest's approach for excluding passwords will not work
+// since we're editing the entity itself
+// if for instance there's a route where it can get the attribute we've excluded will not be possible
+// Therefore intercepting the response will be the best approach
