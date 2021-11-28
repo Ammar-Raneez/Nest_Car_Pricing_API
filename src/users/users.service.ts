@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
@@ -35,7 +35,7 @@ export class UsersService {
     // directly calling repo.update will not run hooks, therefore this approach is better
     const user = await this.findOne(id);
     if (!user) {
-      throw new Error('user not found');
+      throw new NotFoundException('User not found');
     }
 
     // copy all values of attrs into user overwriting any that were present
@@ -47,9 +47,14 @@ export class UsersService {
     // same with delete/remove, any hooks will not run if we call delete()
     const user = await this.findOne(id);
     if (!user) {
-      throw new Error('user not found');
+      throw new NotFoundException('User not found');
     }
 
     return this.repo.remove(user);
   }
 }
+
+// note to know
+// NotFoundException etc. are http specific, therefore if we throw an exception from
+// this service, if we were to use this service for other controllers (websockets)
+// the websocket controller cannot handle them (like http controllers)
