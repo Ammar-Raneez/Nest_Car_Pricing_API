@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { Exclude } from 'class-transformer';
 import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 // create a table of users
@@ -12,6 +13,8 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude()
+  // exclude field when getting user - a rule we specify
   password: string;
 
   // typeorm hooks

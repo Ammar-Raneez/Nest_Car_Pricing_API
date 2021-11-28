@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -7,6 +8,7 @@ import {
   Param,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -21,6 +23,8 @@ export class UsersController {
     this.userService.create(body.email, body.password);
   }
 
+  // interecept this request and remove the password field
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     const user = await this.userService.findOne(+id);
@@ -29,6 +33,9 @@ export class UsersController {
     }
 
     return user;
+
+    // request -> controller findUser() -> service findOne()
+    // response -> user entity instance (directions on how to turn this instance of a class into a plain object) -> class serialie interceptor (turns an instance of user entity into a plain object based on some rules)
   }
 
   @Get()
