@@ -7,6 +7,16 @@ Content-Type: application/json
   "password": "password"
 }
 
+### signin a user
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password1"
+}
+
+
 ### Find a particular user with given ID
 GET http://localhost:3000/auth/2
 
@@ -14,7 +24,7 @@ GET http://localhost:3000/auth/2
 GET http://localhost:3000/auth?email=test@example.com
 
 ### Remove a particular user with given ID
-DELETE http://localhost:3000/auth/2
+DELETE http://localhost:3000/auth/3
 
 ### Update a particular user with given ID
 POST http://localhost:3000/auth/2
