@@ -14,7 +14,7 @@ GET http://localhost:3000/auth/2
 GET http://localhost:3000/auth?email=test@example.com
 
 ### Remove a particular user with given ID
-DELETE http://localhost:3000/auth/1
+DELETE http://localhost:3000/auth/2
 
 ### Update a particular user with given ID
 POST http://localhost:3000/auth/2

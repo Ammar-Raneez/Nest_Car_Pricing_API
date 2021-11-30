@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { AuthService } from './auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
@@ -18,11 +19,14 @@ import { UsersService } from './users.service';
 // intercept all requests
 @Serialize(UserDto)
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    private readonly userService: UsersService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Post('signup')
   createUser(@Body() body: CreateUserDto) {
-    this.userService.create(body.email, body.password);
+    return this.authService.signup(body.email, body.password);
   }
 
   // interecept this request and remove the password field
