@@ -15,6 +15,8 @@ import { UserDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
 
 @Controller('auth')
+// intercept all requests
+@Serialize(UserDto)
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
@@ -24,7 +26,7 @@ export class UsersController {
   }
 
   // interecept this request and remove the password field
-  @Serialize(UserDto)
+  // @Serialize(UserDto)
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     const user = await this.userService.findOne(+id);
