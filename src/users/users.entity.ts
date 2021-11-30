@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-import { Exclude } from 'class-transformer';
 import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 // create a table of users
@@ -13,8 +12,6 @@ export class User {
   email: string;
 
   @Column()
-  @Exclude()
-  // exclude field when getting user - a rule we specify
   password: string;
 
   // typeorm hooks
@@ -37,4 +34,5 @@ export class User {
 // Nest's approach for excluding passwords will not work
 // since we're editing the entity itself
 // if for instance there's a route where it can get the attribute we've excluded will not be possible
-// Therefore intercepting the response will be the best approach
+// Therefore intercepting the response, using a DTO that would descibe how to serialize for a specific route, will be the best approach
+// without changing the entity
