@@ -20,6 +20,9 @@ Content-Type: application/json
 ### Find a particular user with given ID
 GET http://localhost:3000/auth/2
 
+### get currently signed in user
+GET http://localhost:3000/auth/whoami
+
 ### Find all users with given email
 GET http://localhost:3000/auth?email=test@example.com
 

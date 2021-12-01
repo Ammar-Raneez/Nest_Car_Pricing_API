@@ -25,6 +25,11 @@ export class UsersController {
     private readonly authService: AuthService,
   ) {}
 
+  @Get('whoami')
+  whoAmI(@Session() session: any) {
+    return this.userService.findOne(session.userId);
+  }
+
   @Post('signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signup(body.email, body.password);
@@ -35,6 +40,10 @@ export class UsersController {
   @Post('signin')
   async signin(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signin(body.email, body.password);
+
+    // if there's no change to the session object the cookie doesn't return
+    // hence, if u signup and then signin with same credentials, since user.id
+    // is the same session isn't updated
     session.userId = user.id;
     return user;
   }
