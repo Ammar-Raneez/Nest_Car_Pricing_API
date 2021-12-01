@@ -10,7 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // the key will be used to encrypt the data in the cookie
-  app.useGlobalPipes(cookieSession({ keys: ['asdasdas'] }));
+  app.use(cookieSession({ keys: ['asdasdas'] }));
 
   app.useGlobalPipes(
     new ValidationPipe({
