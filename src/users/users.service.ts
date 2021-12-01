@@ -22,6 +22,11 @@ export class UsersService {
   }
 
   findOne(id: number) {
+    // if id is null, sqlite will return the first row of the database
+    if (!id) {
+      return null;
+    }
+
     // find by id, if by attribute - ({ email: 'asdasdads'})
     return this.repo.findOne(id);
   }

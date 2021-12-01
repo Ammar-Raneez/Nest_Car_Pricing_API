@@ -38,7 +38,7 @@ export class UsersController {
   }
 
   @Post('signin')
-  async signin(@Body() body: CreateUserDto, @Session() session: any) {
+  async signn(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signin(body.email, body.password);
 
     // if there's no change to the session object the cookie doesn't return
@@ -46,6 +46,11 @@ export class UsersController {
     // is the same session isn't updated
     session.userId = user.id;
     return user;
+  }
+
+  @Post('signout')
+  signout(@Session() session: any) {
+    session.userId = null;
   }
 
   // interecept this request and remove the password field
