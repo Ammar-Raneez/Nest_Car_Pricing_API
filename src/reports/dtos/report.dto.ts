@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Expose, Transform } from 'class-transformer';
-import { User } from 'src/users/users.entity';
 
 export class ReportDto {
   @Expose()
@@ -26,6 +25,9 @@ export class ReportDto {
 
   @Expose()
   mileage: number;
+
+  @Expose()
+  approved: boolean;
 
   // obj -> original object
   // take the userId from that original object and store in userId
