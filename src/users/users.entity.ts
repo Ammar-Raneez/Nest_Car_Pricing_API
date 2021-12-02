@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Report } from 'src/reports/reports.entity';
+import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 // create a table of users
 @Entity()
@@ -13,6 +14,10 @@ export class User {
 
   @Column()
   password: string;
+
+  // One user can have multiple reports
+  @OneToMany(() => Report, (report) => report.user)
+  reports: Report[];
 
   // typeorm hooks
   @AfterInsert()
