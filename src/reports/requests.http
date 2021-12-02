@@ -19,3 +19,6 @@ Content-Type: application/json
 {
   "approved": true
 }
+
+### Get estimate of existing vehicle
+GET http://localhost:3000/reports?make=toyota&model=corolla&lng=0&lat=0&mileage=100000&year=2000
